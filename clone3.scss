@@ -1,0 +1,151 @@
+// Mixin for centering elements
+
+body, html{
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  @mixin center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  // Mixin for handling media queries
+  @mixin respond-to($breakpoint) {
+    @if $breakpoint == phone {
+      @media (max-width: 480px) {
+        @content;
+      }
+    } @else if $breakpoint == tablet {
+      @media (min-width: 481px) and (max-width: 800px) {
+        @content;
+      }
+    } @else if $breakpoint == desktop {
+      @media (min-width: 801px) {
+        @content;
+      }
+    }
+  }
+  
+  // Mixin for the circle
+  @mixin circle($width, $background-color) {
+    width: $width;
+    height: $width;
+    background-color: $background-color;
+    border-radius: 50%;
+  }
+  
+  // Mixin for the container
+  @mixin container($width, $height, $background-color) {
+    width: $width;
+    height: $height;
+    background-color: $background-color;
+  }
+  
+  // Color Variables
+  $primaryColor: #8ccff7;
+  $secondaryColor1: #4e89ae;
+  $secondaryColor2: #43658b;
+  $secondaryColor3: #ed6663;
+  $secondaryColor4: #ffa372;
+  $hoverColor: #444;
+  
+  // Common dimensions
+  $circle1Radius: 70px;
+  $circle2Radius: 80px;
+  $circle3Radius: 90px;
+  $circle4Radius: 100px;
+  $footerHeight: 50px;
+  $multiCircleMargin: 48px;
+  $multiCircleGap: 10px;
+  
+  .container {
+    @include container(auto, 400px, $primaryColor);
+    @include center;
+    @include respond-to(phone) {
+      @include container(auto, 200px, $primaryColor);
+    }
+    @include respond-to(tablet) {
+      @include container(auto, 300px, $primaryColor);
+    }
+  }
+  
+  .inner-box {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    position: relative;
+    @include center;
+    background: url(https://via.placeholder.com/400);
+    background-size: cover;
+    @include respond-to(phone) {
+      width: 200px;
+      height: 200px;
+      background: url(https://via.placeholder.com/200);
+    }
+    @include respond-to(tablet) {
+      width: 300px;
+      height: 300px;
+      background: url(https://via.placeholder.com/300);
+    }
+  }
+  
+  .contain {
+    @include container(auto, 30px, $secondaryColor1);
+  }
+  
+  .contain2 {
+    @include container(auto, 30px, $secondaryColor2);
+  }
+  
+  .contain3 {
+    @include container(auto, 30px, $secondaryColor3);
+  }
+  
+  .contain4 {
+    @include container(auto, 30px, $secondaryColor4);
+  }
+  
+  .multi-circles {
+    display: flex;
+    flex-direction: column;
+    @include center;
+    flex-wrap: wrap;
+    gap: $multiCircleGap;
+    margin: $multiCircleMargin;
+  }
+  
+  .circle {
+    @include circle($circle1Radius, $secondaryColor1);
+  }
+  
+  .circle2 {
+    @include circle($circle2Radius, $secondaryColor2);
+  }
+  
+  .circle3 {
+    @include circle($circle3Radius, $secondaryColor3);
+  }
+  
+  .circle4 {
+    @include circle($circle4Radius, $secondaryColor4);
+  }
+  
+  .foot-box {
+    @include container(auto, $footerHeight, $primaryColor);
+  }
+  
+  .circle,.circle1, .circle2, .circle3, .circle4, .contain, .contain2, .contain3, .contain4, .foot-box {
+    &:hover{
+      background-color: $hoverColor;
+      cursor: pointer;
+    }
+  }
+  
+  @include respond-to(desktop) {
+    .multi-circles {
+      flex-direction: row;
+    }
+  }
+  
